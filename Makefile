@@ -17,6 +17,9 @@ COMPILE = $(JAVAC) $(COMPILE_FLAGS)
 TEST_FLAGS = -cp $(BIN_DIR):$(JUNIT_DIR) org.junit.runner.JUnitCore $(PACKAGE).test.TestSuite
 RUN_TESTS = $(JVM) $(TEST_FLAGS)
 
+RUN_FLAGS = -cp $(BIN_DIR):$(JUNIT_DIR) $(PACKAGE).Driver
+RUN = $(JVM) $(RUN_FLAGS)
+
 all: makedirs
 	find $(SRC_DIR) -name "*.java" -print | xargs $(COMPILE)
 
@@ -31,3 +34,6 @@ tests:
 
 run_tests:
 	$(RUN_TESTS)
+
+run:
+	$(RUN)
