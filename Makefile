@@ -10,14 +10,15 @@ SRC_DIR = ./src/
 TEST_DIR = $(SRC_DIR)test/
 
 JUNIT_DIR = /usr/share/java/junit4.jar
+TESS_DIR = ./lib/tess4j-1.3.0.jar
 
-COMPILE_FLAGS = -g -d $(BIN_DIR) -cp $(JUNIT_DIR):$(BIN_DIR)
+COMPILE_FLAGS = -g -d $(BIN_DIR) -cp $(JUNIT_DIR):$(BIN_DIR):$(TESS_DIR)
 COMPILE = $(JAVAC) $(COMPILE_FLAGS)
 
 TEST_FLAGS = -cp $(BIN_DIR):$(JUNIT_DIR) org.junit.runner.JUnitCore $(PACKAGE).test.TestSuite
 RUN_TESTS = $(JVM) $(TEST_FLAGS)
 
-RUN_FLAGS = -cp $(BIN_DIR):$(JUNIT_DIR) $(PACKAGE).Driver
+RUN_FLAGS = -cp $(BIN_DIR):$(JUNIT_DIR):$(TESS_DIR) $(PACKAGE).Driver
 RUN = $(JVM) $(RUN_FLAGS)
 
 all: makedirs

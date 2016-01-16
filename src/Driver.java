@@ -1,6 +1,7 @@
 package translate;
 
 import translate.web.TranslateClient;
+import translate.tesseract.TranslateTesseract;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,5 +32,7 @@ public class Driver
         {
             System.out.println(o);
         }
+        String s = TranslateTesseract.getText("images/test.png");
+        System.out.println(s);
     }
 }
