@@ -35,6 +35,10 @@ public class TranslateClient
 
     public String parameterize(Map<String, String> parameters) throws UnsupportedEncodingException
     {
+        if (parameters.size() == 0) {
+            return "";
+        }
+
         String params = "";
         for (Map.Entry<String, String> parameter : parameters.entrySet())
         {
