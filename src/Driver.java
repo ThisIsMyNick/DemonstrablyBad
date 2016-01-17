@@ -19,12 +19,18 @@ public class Driver
 {
     public static void main(String[] args)
     {
+        if (args.length < 1) {
+            System.out.println("Please provide an image!");
+            System.exit(1);
+        }
+        String s = TranslateTesseract.getText(args[0]);
         TranslateClient t = new TranslateClient();
+
         Map<String, String> params = new HashMap<>();
         params.put("sl", "es");
         params.put("tl", "en");
         params.put("client", "p");
-        params.put("text", "hola, como estas?");
+        params.put("text", s);
         try
         {
             System.out.println(t.makeRequest(t.GOOGLE_URL, "GET", params));
@@ -32,7 +38,5 @@ public class Driver
         {
             System.out.println(o);
         }
-        String s = TranslateTesseract.getText("images/test.png");
-        System.out.println(s);
     }
 }
