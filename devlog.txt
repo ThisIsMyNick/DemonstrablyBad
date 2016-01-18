@@ -1,0 +1,30 @@
+Devlog
+------
+
+[2016-01-18]
+    [1172d93] James Wang: Allow specification of target and source languages from cli
+
+[2016-01-17]
+    [10912dd] James Wang: Allow program to take an image as an argument
+    [d38849e] James Wang: Remove unused tessdata files
+    [356164c] James Wang: Add more tests
+
+[2016-01-15]
+    [34588f1] James Wang: Add tesseract library
+    [6580cd3] Nobel Gautam: Add driver, update TODO
+
+[2016-01-14]
+    [643bd71] James Wang: Add TODO.md
+    [8aa2824] James Wang: Add JUnit testing suite
+    [e513d80] James Wang: Add java class to send web requests
+
+[2016-01-11]
+    [8a2514e] James Wang: Add devlog
+
+[2016-01-08]
+    [cb8f8e6] Nobel Gautam: Resolve Issue #1
+
+[2016-01-07]
+    [fedc08d] Nobel Gautam: Make james' gitignore less bad
+    [67ab6d6] James Wang: Use better .gitignore
+    [61a45e7] Nobel Gautam: Initial commit

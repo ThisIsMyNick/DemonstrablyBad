@@ -5,7 +5,7 @@ DEVLOG="devlog.txt"
 function group_commits_by_date() {
     while read date; do
         echo "[$date]"
-        cat <(git log --no-merges --format="    [%h] %cn: %s" --since="$date 00:00:00" --until="$date 24:00:00" | sed 's/ThisIsMyNick/Nobel Gautam/g')
+        cat <(git log --no-merges --format="    [%h] %cn: %s" --since="$date 00:00:00" --until="$date 24:00:00" | sed 's/ThisIsMyNick/Nobel Gautam/g' | grep -v "Update devlog")
         echo  ""
     done < <(git log --no-merges --format="%cd" --date=short | sort --unique --reverse)
 }
