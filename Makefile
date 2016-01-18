@@ -37,4 +37,4 @@ run_tests:
 	$(RUN_TESTS)
 
 run:
-	$(RUN) $(img)
+	$(RUN) $(img) --from=$(from) --to=$(to)
