@@ -83,7 +83,8 @@ public class Driver
         params.put("text", s);
         try
         {
-            System.out.println(t.makeRequest(t.GOOGLE_URL, "GET", params));
+            String response = t.makeRequest(t.GOOGLE_URL, "GET", params);
+            System.out.println(t.getSentences(response));
         } catch (IOException o)
         {
             System.out.println(o);

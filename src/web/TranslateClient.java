@@ -11,6 +11,10 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
 
 /*
  * Handles interaction with the Google api
@@ -70,5 +74,17 @@ public class TranslateClient
             response += input;
         }
         return response;
+    }
+
+    public String getSentences(String json) {
+        JsonObject object = Json.parse(json).asObject();
+        JsonArray sentences = object.get("sentences").asArray();
+        JsonValue sentence = sentences.get(0);
+
+        String translated = sentence.asObject().get("trans").asString();
+
+        // Replace multiple new lines with just one
+        translated = translated.replace("\n\n", "\n");
+        return translated;
     }
 }
