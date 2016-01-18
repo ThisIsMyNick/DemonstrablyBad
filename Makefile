@@ -21,6 +21,8 @@ RUN_TESTS = $(JVM) $(TEST_FLAGS)
 RUN_FLAGS = -cp $(BIN_DIR):$(JUNIT_DIR):$(TESS_DIR) $(PACKAGE).Driver
 RUN = $(JVM) $(RUN_FLAGS)
 
+.SILENT:
+
 all: makedirs
 	find $(SRC_DIR) -name "*.java" -print | xargs $(COMPILE)
 
@@ -34,7 +36,7 @@ tests:
 	find $(TEST_DIR) -name "*.java" -print | xargs $(COMPILE)
 
 run_tests:
-	$(RUN_TESTS)
+	$(RUN_TESTS) || true
 
 run:
-	$(RUN) $(img) --from=$(from) --to=$(to)
+	$(RUN) $(img) --from=$(from) --to=$(to) || true
