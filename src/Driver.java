@@ -20,11 +20,20 @@ public class Driver
     static String source;
     static String target;
 
+    public static void help() {
+        System.out.println("Usage: make run img=PATH [from=SOURCE] [to=TARGET]");
+        System.out.println("Arguments:");
+        System.out.println("\timg\tImage to be translated");
+        System.out.println("\tfrom\tLanguage to be translated from (defaults to automatic language detection).");
+        System.out.println("\tto\tLanguage to translate image to");
+    }
+
     public static void parseArgs(String[] args) {
 
         // Only the to and from arguments have been passed
         if (args.length < 3) {
             System.out.println("Please provide an image.");
+            help();
             System.exit(1);
         }
 
@@ -32,6 +41,7 @@ public class Driver
         File f = new File(args[0]);
         if (!f.exists() || f.isDirectory()) {
             System.out.println("File does not exist!");
+            help();
             System.exit(1);
         }
 
