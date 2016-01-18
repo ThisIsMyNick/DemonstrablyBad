@@ -5,7 +5,7 @@ TODO
 - [x] Research OCR libraries
 - [x] Extract text from image
 - [x] Send requests to google translate
-- [ ] Parse json response
+- [x] Parse json response
 - [ ] Document code
 - [ ] Implement more tests to the testing suite
 - [ ] Android app?
