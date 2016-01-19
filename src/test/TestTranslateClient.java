@@ -58,8 +58,7 @@ public class TestTranslateClient
             result = client.parameterize(parameters);
             assertEquals(result, "test=params");
 
-            parameters.put("u", "
-                    {} ");
+            parameters.put("u", "{} ");
             result = client.parameterize(parameters);
             assertEquals(result, "test=params&u=%7B%7D+");
         } catch (UnsupportedEncodingException e)
@@ -73,7 +72,7 @@ public class TestTranslateClient
     {
         try
         {
-            String response = client.makeRequest("https://icanhazip.com", "POST", new HashMap<>());
+            String response = client.makeRequest("https://icanhazip.com", "POST", new HashMap<String, String>());
             assertFalse(response=="");
         } catch (Exception e)
         {
