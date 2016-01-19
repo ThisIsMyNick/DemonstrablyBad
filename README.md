@@ -10,6 +10,15 @@ Dependencies can be installed via:
 
 `sudo apt-get install openjdk-7-jdk openjdk-7-jre junit4`
 
+#### Running the project
+To compile:
+
+`make all`
+
+To run:
+
+`make run img=path/to/image [to=<target>] [from=<source>]`
+
 #### Tests
 This project uses [JUnit](http://junit.org/) as a testing suite, which makes it very easy to
 create and run tests to ensure consistent code results.
