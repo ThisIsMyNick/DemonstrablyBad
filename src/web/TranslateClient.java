@@ -79,12 +79,14 @@ public class TranslateClient
     public String getSentences(String json) {
         JsonObject object = Json.parse(json).asObject();
         JsonArray sentences = object.get("sentences").asArray();
-        JsonValue sentence = sentences.get(0);
 
-        String translated = sentence.asObject().get("trans").asString();
+        String translated = "";
+        for (JsonValue value : sentences) {
+            translated += value.asObject().get("trans").asString();
 
-        // Replace multiple new lines with just one
-        translated = translated.replace("\n\n", "\n");
+            // Replace multiple new lines with just one
+            translated = translated.replace("\n\n", "\n");
+        }
         return translated;
     }
 }
