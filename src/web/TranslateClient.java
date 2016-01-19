@@ -39,7 +39,8 @@ public class TranslateClient
 
     public String parameterize(Map<String, String> parameters) throws UnsupportedEncodingException
     {
-        if (parameters.size() == 0) {
+        if (parameters.size() == 0)
+        {
             return "";
         }
 
@@ -76,12 +77,14 @@ public class TranslateClient
         return response;
     }
 
-    public String getSentences(String json) {
+    public String getSentences(String json)
+    {
         JsonObject object = Json.parse(json).asObject();
         JsonArray sentences = object.get("sentences").asArray();
 
         String translated = "";
-        for (JsonValue value : sentences) {
+        for (JsonValue value : sentences)
+        {
             translated += value.asObject().get("trans").asString();
 
             // Replace multiple new lines with just one

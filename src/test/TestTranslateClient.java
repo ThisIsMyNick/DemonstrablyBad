@@ -14,36 +14,42 @@ import translate.web.TranslateClient;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class TestTranslateClient {
-
+public class TestTranslateClient
+{
     TranslateClient client;
     String result;
     Map<String, String> parameters;
 
     @Before
-    public void setup() {
+    public void setup()
+    {
         result = "";
         parameters = new HashMap<>();
         client = new TranslateClient();
     }
 
     @Test
-    public void testUrlEncode() {
-        try {
+    public void testUrlEncode()
+    {
+        try
+        {
             result = TranslateClient.urlEncode("test");
             assertEquals(result, "test");
             result = TranslateClient.urlEncode("this and that!");
             assertEquals(result, "this+and+that%21");
             result = TranslateClient.urlEncode("?&&||&&?");
             assertEquals(result, "%3F%26%26%7C%7C%26%26%3F");
-        } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e)
+        {
             fail(e.toString());
         }
     }
 
     @Test
-    public void testParameterize() {
-        try {
+    public void testParameterize()
+    {
+        try
+        {
             result = client.parameterize(parameters);
             assertEquals(result, "");
 
@@ -52,20 +58,25 @@ public class TestTranslateClient {
             result = client.parameterize(parameters);
             assertEquals(result, "test=params");
 
-            parameters.put("u", "{} ");
+            parameters.put("u", "
+                    {} ");
             result = client.parameterize(parameters);
             assertEquals(result, "test=params&u=%7B%7D+");
-        } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e)
+        {
             fail(e.toString());
         }
     }
 
     @Test
-    public void testMakeRequest() {
-        try {
+    public void testMakeRequest()
+    {
+        try
+        {
             String response = client.makeRequest("https://icanhazip.com", "POST", new HashMap<>());
             assertFalse(response=="");
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             fail(e.toString());
         }
     }

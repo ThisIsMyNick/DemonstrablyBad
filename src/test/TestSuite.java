@@ -5,5 +5,6 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses(TestTranslateClient.class)
-public class TestSuite {
+public class TestSuite
+{
 }

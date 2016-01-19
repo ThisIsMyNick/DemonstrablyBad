@@ -1,7 +1,15 @@
 Devlog
 ------
 
+[2016-01-19]
+    [8a2525c] James Wang: Solidify json parsing by implementing a for loop
+
 [2016-01-18]
+    [b0411a1] James Wang: Update TODO.md
+    [a23d5b0] James Wang: Add method to parse json response from Google
+    [a8a732c] James Wang: Update TODO.md
+    [777d5c9] James Wang: Silent makefile targets
+    [16c7265] James Wang: Add help dialog
     [1172d93] James Wang: Allow specification of target and source languages from cli
 
 [2016-01-17]
