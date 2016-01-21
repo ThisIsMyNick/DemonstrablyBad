@@ -1,7 +1,14 @@
 Devlog
 ------
 
+[2016-01-20]
+    [358d3bd] James Wang: Add tesseract to list of dependencies
+
 [2016-01-19]
+    [d954bd8] Nobel Gautam: Update TODO. We greatly overestimated the capabilities of this OCR library
+    [cda65a8] Nobel Gautam: Fix regex-caused issue, fix old java compliancy issue
+    [7047f9e] James Wang: Add run instructions to the README
+    [ba78e42] Nobel Gautam: Patch stuff up, update devlog, fix brace style, update TODO
     [8a2525c] James Wang: Solidify json parsing by implementing a for loop
 
 [2016-01-18]
