@@ -12,6 +12,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.net.UnknownHostException;
 import translate.tesseract.TranslateTesseract;
 import translate.web.TranslateClient;
 
@@ -89,9 +90,13 @@ public class Driver
         {
             String response = t.makeRequest(t.GOOGLE_URL, "GET", params);
             System.out.println(t.getSentences(response));
-        } catch (IOException o)
+        } catch (Exception o)
         {
             System.out.println(o);
+            if (o instanceof UnknownHostException)
+            {
+                System.out.println("Perhaps you're not connected to the internet.");
+            }
         }
     }
 }
