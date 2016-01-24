@@ -103,7 +103,6 @@ public class WebUtils {
 
     public static boolean downloadFile(String fileURL, String saveDir)
             throws IOException {
-        Log.d("DEBUG", "Downloading...");
         URL url = new URL(fileURL);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
         int responseCode = httpConn.getResponseCode();
@@ -142,7 +141,6 @@ public class WebUtils {
             inputStream.close();
             return true;
         } else {
-            Log.d("idk", "Something went wrong " + fileURL);
             return false;
         }
     }

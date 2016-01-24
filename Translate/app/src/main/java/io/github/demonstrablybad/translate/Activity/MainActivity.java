@@ -1,7 +1,9 @@
 package io.github.demonstrablybad.translate.Activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,14 +14,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import io.github.demonstrablybad.translate.R;
 import io.github.demonstrablybad.translate.Fragment.TranslatePictureFragment;
 import io.github.demonstrablybad.translate.Fragment.TranslateTextFragment;
 import io.github.demonstrablybad.translate.install.Install;
+import io.github.demonstrablybad.translate.ocr.OCR;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ActionBarDrawerToggle mDrawerToggle;
     private SharedPreferences prefs;
+
+    public static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,4 +151,9 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.closeDrawers();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Let the fragment handle the intent
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

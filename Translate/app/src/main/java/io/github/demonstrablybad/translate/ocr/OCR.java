@@ -1,5 +1,6 @@
 package io.github.demonstrablybad.translate.ocr;
 
+import android.graphics.Bitmap;
 import android.os.Environment;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
@@ -49,4 +50,8 @@ public class OCR {
         tessAPI.init(getTessDirectory(), lang);
     }
 
+    public String getText(Bitmap bitmap) {
+        tessAPI.setImage(bitmap);
+        return tessAPI.getUTF8Text();
+    }
 }
