@@ -16,8 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import io.github.demonstrablybad.translate.R;
-import io.github.demonstrablybad.translate.TranslatePictureFragment;
-import io.github.demonstrablybad.translate.TranslateTextFragment;
+import io.github.demonstrablybad.translate.Fragment.TranslatePictureFragment;
+import io.github.demonstrablybad.translate.Fragment.TranslateTextFragment;
 
 public class MainActivity extends AppCompatActivity {
 
