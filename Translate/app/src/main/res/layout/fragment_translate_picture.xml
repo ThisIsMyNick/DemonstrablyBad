@@ -1,0 +1,27 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.github.demonstrablybad.translate.TranslatePicture">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/take_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Take picture"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/upload_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Upload picture"
+            android:layout_below="@+id/take_picture"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+</FrameLayout>
