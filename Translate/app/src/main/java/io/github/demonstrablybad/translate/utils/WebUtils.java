@@ -1,11 +1,19 @@
 package io.github.demonstrablybad.translate.utils;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -13,10 +21,12 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
+import io.github.demonstrablybad.translate.Activity.MainActivity;
+
 public class WebUtils {
 
-    private final String USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36";
-    public final String GOOGLE_TRANSLATE = "http://translate.google.com/translate_a/t";
+    public static final String USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36";
+    public static final String GOOGLE_TRANSLATE = "http://translate.google.com/translate_a/t";
 
     public static String urlEncode(String s) throws UnsupportedEncodingException
     {
@@ -29,7 +39,7 @@ public class WebUtils {
         }
     }
 
-    public String parameterize(Map<String, String> parameters) throws UnsupportedEncodingException
+    public static String parameterize(Map<String, String> parameters) throws UnsupportedEncodingException
     {
         if (parameters.size() == 0)
         {
@@ -47,7 +57,7 @@ public class WebUtils {
         return params.substring(0, params.length()-1);
     }
 
-    public String makeRequest(String url, String method, Map<String, String> parameters) throws IOException
+    public static String makeRequest(String url, String method, Map<String, String> parameters) throws IOException
     {
         URL u = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) u.openConnection();
@@ -69,7 +79,7 @@ public class WebUtils {
         return response;
     }
 
-    public String getSentences(String json) {
+    public static String getSentences(String json) {
         JSONObject object;
         JSONArray array;
         try {
@@ -91,4 +101,49 @@ public class WebUtils {
         return translated;
     }
 
+    public static boolean downloadFile(String fileURL, String saveDir)
+            throws IOException {
+        Log.d("DEBUG", "Downloading...");
+        URL url = new URL(fileURL);
+        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+        int responseCode = httpConn.getResponseCode();
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            String fileName = "";
+            String disposition = httpConn.getHeaderField("Content-Disposition");
+            String contentType = httpConn.getContentType();
+            int contentLength = httpConn.getContentLength();
+
+            if (disposition != null) {
+                int index = disposition.indexOf("filename=");
+                if (index > 0) {
+                    fileName = disposition.substring(index + 10,
+                            disposition.length() - 1);
+                }
+            } else {
+                fileName = fileURL.substring(fileURL.lastIndexOf("/") + 1,
+                        fileURL.length());
+            }
+
+            InputStream inputStream = httpConn.getInputStream();
+            String saveFilePath = saveDir + "/" + fileName;
+
+            // opens an output stream to save into file
+            FileOutputStream outputStream = new FileOutputStream(saveFilePath);
+
+            int bytesRead = -1;
+            byte[] buffer = new byte[1024]; // one kb
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            outputStream.flush();
+            outputStream.close();
+            inputStream.close();
+            return true;
+        } else {
+            Log.d("idk", "Something went wrong " + fileURL);
+            return false;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package io.github.demonstrablybad.translate.Activity;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,7 @@ import android.view.View;
 import io.github.demonstrablybad.translate.R;
 import io.github.demonstrablybad.translate.Fragment.TranslatePictureFragment;
 import io.github.demonstrablybad.translate.Fragment.TranslateTextFragment;
+import io.github.demonstrablybad.translate.install.Install;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private ActionBarDrawerToggle mDrawerToggle;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.drawer_open, R.string.drawer_close);
         mDrawer.setDrawerListener(mDrawerToggle);
+
+        prefs = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
     }
 
     @Override
@@ -64,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (prefs.getBoolean("first_run", true)) {
+            Install.install();
+            prefs.edit().putBoolean("first_run", false).commit();
+        }
     }
 
     @Override

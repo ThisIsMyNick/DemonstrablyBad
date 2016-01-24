@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import io.github.demonstrablybad.translate.R;
+import io.github.demonstrablybad.translate.ocr.OCR;
 
 public class TranslatePictureFragment extends Fragment {
 
