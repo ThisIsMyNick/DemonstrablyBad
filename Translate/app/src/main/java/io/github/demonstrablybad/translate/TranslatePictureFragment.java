@@ -1,14 +1,16 @@
 package io.github.demonstrablybad.translate;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TranslateText extends Fragment {
+public class TranslatePictureFragment extends Fragment {
 
-    public TranslateText() {
+    public TranslatePictureFragment() {
         // Required empty public constructor
     }
 
@@ -16,6 +18,6 @@ public class TranslateText extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_translate_text, container, false);
+        return inflater.inflate(R.layout.fragment_translate_picture, container, false);
     }
 }

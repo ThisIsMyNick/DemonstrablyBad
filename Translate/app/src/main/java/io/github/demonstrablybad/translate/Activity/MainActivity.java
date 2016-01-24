@@ -1,4 +1,4 @@
-package io.github.demonstrablybad.translate;
+package io.github.demonstrablybad.translate.Activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -14,6 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import io.github.demonstrablybad.translate.R;
+import io.github.demonstrablybad.translate.TranslatePictureFragment;
+import io.github.demonstrablybad.translate.TranslateTextFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -101,13 +105,13 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.translate_picture:
-                fragmentClass = TranslatePicture.class;
+                fragmentClass = TranslatePictureFragment.class;
                 break;
             case R.id.translate_text:
-                fragmentClass = TranslateText.class;
+                fragmentClass = TranslateTextFragment.class;
                 break;
             default:
-                fragmentClass = TranslatePicture.class;
+                fragmentClass = TranslatePictureFragment.class;
         }
 
         try {
