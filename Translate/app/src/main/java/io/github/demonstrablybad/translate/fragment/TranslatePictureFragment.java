@@ -1,4 +1,4 @@
-package io.github.demonstrablybad.translate.Fragment;
+package io.github.demonstrablybad.translate.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,7 +14,7 @@ import android.widget.Button;
 
 import java.io.File;
 
-import io.github.demonstrablybad.translate.Activity.MainActivity;
+import io.github.demonstrablybad.translate.activity.MainActivity;
 import io.github.demonstrablybad.translate.R;
 import io.github.demonstrablybad.translate.ocr.OCR;
 

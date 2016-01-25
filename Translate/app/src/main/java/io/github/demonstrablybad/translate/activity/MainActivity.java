@@ -1,9 +1,8 @@
-package io.github.demonstrablybad.translate.Activity;
+package io.github.demonstrablybad.translate.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -14,17 +13,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import io.github.demonstrablybad.translate.R;
-import io.github.demonstrablybad.translate.Fragment.TranslatePictureFragment;
-import io.github.demonstrablybad.translate.Fragment.TranslateTextFragment;
+import io.github.demonstrablybad.translate.fragment.TranslatePictureFragment;
+import io.github.demonstrablybad.translate.fragment.TranslateTextFragment;
 import io.github.demonstrablybad.translate.install.Install;
-import io.github.demonstrablybad.translate.ocr.OCR;
 
 public class MainActivity extends AppCompatActivity {
 
