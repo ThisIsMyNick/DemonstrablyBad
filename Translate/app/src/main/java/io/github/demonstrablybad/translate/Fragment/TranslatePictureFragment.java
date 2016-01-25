@@ -1,10 +1,8 @@
 package io.github.demonstrablybad.translate.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -46,7 +44,7 @@ public class TranslatePictureFragment extends Fragment {
             }
         });
 
-        uploadPictureButton = (Button) rootView.findViewById(R.id.upload_picture);
+        uploadPictureButton = (Button) rootView.findViewById(R.id.choose_picture);
         uploadPictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

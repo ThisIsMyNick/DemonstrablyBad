@@ -23,7 +23,7 @@ public class DownloadFileAsyncTask extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected void onPostExecute(String file_url) {
+    protected void onPostExecute(String url) {
     }
 
 }

@@ -19,6 +19,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
+import java.util.HashMap;
 import java.util.Map;
 
 import io.github.demonstrablybad.translate.Activity.MainActivity;
@@ -143,5 +145,26 @@ public class WebUtils {
         } else {
             return false;
         }
+    }
+
+    public static String translate(String text, String source, String target) {
+        Map<String, String> params = new HashMap<>();
+        params.put("sl", source);
+        params.put("tl", target);
+        params.put("client", "p");
+        params.put("text", text);
+
+        String response;
+        try {
+            response = makeRequest(GOOGLE_TRANSLATE, "GET", params);
+        } catch (Exception e) {
+            if (e instanceof UnknownHostException) {
+                Log.d("ERROR", "No Internet");
+            } else {
+                Log.d("ERROR", "SOMETHING GOOFED", e);
+            }
+            return "";
+        }
+        return getSentences(response);
     }
 }

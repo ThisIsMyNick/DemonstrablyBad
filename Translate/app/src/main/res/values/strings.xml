@@ -7,4 +7,15 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+
+    <string-array name="source_array">
+        <item>Detect Language</item>
+        <item>English</item>
+        <item>Spanish</item>
+    </string-array>
+
+    <string-array name="target_array">
+        <item>English</item>
+        <item>Spanish</item>
+    </string-array>
 </resources>
