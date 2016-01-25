@@ -17,6 +17,8 @@ import io.github.demonstrablybad.translate.utils.WebUtils;
  */
 public class OCR {
 
+    private static OCR ocr;
+
     public final static String EXTERNAL_APP_DIRECTORY = "DemonstrablyBad";
     public final static String OCR_DATA_DIRECTORY = EXTERNAL_APP_DIRECTORY + "/" + "tessdata";
     public final static String IMAGE_DIRECTORY = EXTERNAL_APP_DIRECTORY + "/" + "images";
@@ -24,6 +26,13 @@ public class OCR {
 
 
     private TessBaseAPI tessAPI;
+
+    public static OCR getInstance() {
+        if (ocr == null) {
+            ocr = new OCR();
+        }
+        return ocr;
+    }
 
     public static String getTessDirectory() {
         String path = new File(Environment.getExternalStorageDirectory(), EXTERNAL_APP_DIRECTORY).getPath() + "/";
