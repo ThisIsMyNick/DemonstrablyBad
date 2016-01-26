@@ -6,9 +6,9 @@ DemonstrablyBad is a project that attempts to translate text found in images.
 By Nobel Gautam and James Wang.
 
 #### Dependencies
-On Ubuntu 14.04 or later, dependencies can be installed via:
+On Ubuntu 14.04 or later, required dependencies can be installed via:
 
-`sudo apt-get install openjdk-7-jdk openjdk-7-jre junit4 tesseract-ocr`
+`sudo apt-get install tesseract-ocr`
 
 #### Running the project
 To compile:

@@ -1,0 +1,52 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.github.demonstrablybad.translate.fragment.OCRChooseLanguageFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ocr_choose_language_imageview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/alert_dark_frame"/>
+
+        <LinearLayout
+            android:id="@+id/ocr_choose_language_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ocr_choose_language_imageview"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/ocr_choose_language_prompt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:padding="10dp"
+                android:text="Language of image:"
+                android:layout_gravity="left|top" />
+
+            <Spinner
+                android:id="@+id/ocr_choose_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+            </Spinner>
+
+        </LinearLayout>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/ocr_choose_language_layout">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+</FrameLayout>
