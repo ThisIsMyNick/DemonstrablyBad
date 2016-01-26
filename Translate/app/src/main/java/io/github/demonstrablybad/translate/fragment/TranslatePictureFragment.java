@@ -1,10 +1,13 @@
 package io.github.demonstrablybad.translate.fragment;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.renderscript.ScriptGroup;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -14,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import io.github.demonstrablybad.translate.activity.MainActivity;
 import io.github.demonstrablybad.translate.R;
@@ -51,7 +56,7 @@ public class TranslatePictureFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivity(intent);
+                startActivityForResult(intent, UPLOAD_IMAGE_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -68,10 +73,17 @@ public class TranslatePictureFragment extends Fragment {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
         } else if (requestCode == UPLOAD_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == MainActivity.RESULT_OK) {
-            File image = new File(data.getData().getPath());
-            if (image.exists()) {
-                imageBitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+
+            // Retrieve image from gallery intent
+            InputStream stream;
+            try {
+                stream = getActivity().getContentResolver().openInputStream(data.getData());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return;
             }
+
+            imageBitmap = BitmapFactory.decodeStream(stream);
         } else {
             return;
         }
