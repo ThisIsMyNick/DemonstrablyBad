@@ -18,13 +18,3 @@ To compile:
 To run:
 
 `make run img=path/to/image [to=<target>] [from=<source>]`
-
-#### Tests
-This project uses [JUnit](http://junit.org/) as a testing suite, which makes it very easy to
-create and run tests to ensure consistent code results.
-
-To run the tests, simply run:
-```
-$ make tests
-$ make run_tests
-```
