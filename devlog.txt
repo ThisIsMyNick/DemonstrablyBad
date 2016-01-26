@@ -1,6 +1,21 @@
 Devlog
 ------
 
+[2016-01-26]
+    [25eb562] Nobel Gautam: Add spanish traindata. Add auto-identifying which traindata to use when source language is omitted.
+
+[2016-01-25]
+    [d31d68c] Nobel Gautam: Add interactive mode. Clean run.sh. Update README
+    [b5c5878] Nobel Gautam: Remove make run from Makefile. Update README
+    [dfaadf4] Nobel Gautam: Shell script to run file
+    [41b3b07] Nobel Gautam: Add test images
+    [29cdb46] James Wang: Update README to reflect removed dependencies
+    [09a46a8] James Wang: Remove JUnit
+    [055bb60] Nobel Gautam: Add option to transcribe
+
+[2016-01-21]
+    [c65e3b6] Nobel Gautam: Friendly error msg
+
 [2016-01-20]
     [358d3bd] James Wang: Add tesseract to list of dependencies
 
