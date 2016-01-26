@@ -1,5 +1,6 @@
 package io.github.demonstrablybad.translate.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
@@ -16,8 +17,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
+
 import io.github.demonstrablybad.translate.R;
-import io.github.demonstrablybad.translate.utils.Utils;
+import io.github.demonstrablybad.translate.ocr.OCR;
 import io.github.demonstrablybad.translate.utils.WebUtils;
 
 public class TranslateTextFragment extends Fragment {
@@ -34,6 +37,17 @@ public class TranslateTextFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static TranslateTextFragment newInstance(String input) {
+        TranslateTextFragment fragment = new TranslateTextFragment();
+
+        Bundle args = new Bundle();
+        args.putString("input", input);
+
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     public void updateTranslation(View rootView) {
 
         String text = inputText.getText().toString();
@@ -43,8 +57,8 @@ public class TranslateTextFragment extends Fragment {
         } else {
             int sourcePosition = sourceSpinner.getSelectedItemPosition();
             int targetPosition = targetSpinner.getSelectedItemPosition();
-            String source = Utils.SOURCE_LANGUAGES[sourcePosition];
-            String target = Utils.TARGET_LANGUAGES[targetPosition];
+            String source = OCR.SOURCE_LANGUAGES[sourcePosition];
+            String target = OCR.TARGET_LANGUAGES[targetPosition];
             String trans = WebUtils.translate(text, source, target);
             translated.setText(trans);
             outputCard.setVisibility(View.VISIBLE);
@@ -69,6 +83,10 @@ public class TranslateTextFragment extends Fragment {
         translated = (TextView) rootView.findViewById(R.id.translated_text);
         inputText = (EditText) rootView.findViewById(R.id.input_text);
 
+        if (getArguments() != null && getArguments().containsKey("input")) {
+            inputText.setText(getArguments().getString("input"));
+        }
+
         inputText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -89,13 +107,13 @@ public class TranslateTextFragment extends Fragment {
 
         // Set the dropdown options for source and target languages
         sourceSpinner = (Spinner) rootView.findViewById(R.id.source_spinner);
-        final ArrayAdapter<CharSequence> sourceAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(),
+        ArrayAdapter<CharSequence> sourceAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(),
                 R.array.source_array, android.R.layout.simple_spinner_item);
         sourceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sourceSpinner.setAdapter(sourceAdapter);
 
         targetSpinner = (Spinner) rootView.findViewById(R.id.target_spinner);
-        final ArrayAdapter<CharSequence> targetAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(),
+        ArrayAdapter<CharSequence> targetAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(),
                 R.array.target_array, android.R.layout.simple_spinner_item);
         targetAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         targetSpinner.setAdapter(targetAdapter);

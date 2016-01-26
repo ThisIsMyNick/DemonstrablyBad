@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,16 +63,29 @@ public class TranslatePictureFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         OCR ocr = new OCR();
         ocr.initTessAPI("eng");
+        Bitmap imageBitmap = null;
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == MainActivity.RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            Log.d("DEBUG", ocr.getText(imageBitmap));
+            imageBitmap = (Bitmap) extras.get("data");
         } else if (requestCode == UPLOAD_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == MainActivity.RESULT_OK) {
             File image = new File(data.getData().getPath());
             if (image.exists()) {
-                Bitmap imageBitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
-                Log.d("DEBUG", ocr.getText(imageBitmap));
+                imageBitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
             }
+        } else {
+            return;
         }
+        Fragment fragment;
+        try {
+            fragment = (Fragment) OCRChooseLanguageFragment.newInstance(imageBitmap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragments, fragment).commit();
+
     }
 }
