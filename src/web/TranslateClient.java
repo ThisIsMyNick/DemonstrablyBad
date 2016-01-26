@@ -22,10 +22,13 @@ import com.eclipsesource.json.JsonValue;
 public class TranslateClient
 {
 
+    // Chrome user agent
     private final String USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36";
-    //private static final String GOOGLE_URL = "http://translate.google.com/translate_a/t";
+
+    // Url to Google's free translation API
     public final String GOOGLE_URL = "http://translate.google.com/translate_a/t";
 
+    // Urlencodes a given string
     public static String urlEncode(String s) throws UnsupportedEncodingException
     {
         try
@@ -37,6 +40,7 @@ public class TranslateClient
         }
     }
 
+    // Turns Map into a valid query string for web requests
     public String parameterize(Map<String, String> parameters) throws UnsupportedEncodingException
     {
         if (parameters.size() == 0)
@@ -47,26 +51,35 @@ public class TranslateClient
         String params = "";
         for (Map.Entry<String, String> parameter : parameters.entrySet())
         {
+            // Format of a key/value pair is key=value, and those pairs are delimited by "&"
             params += String.format("%s=%s",
                     urlEncode(parameter.getKey().toString()),
                     urlEncode(parameter.getValue().toString()));
             params += "&";
         }
+
+        // Strip trailing "&"
         return params.substring(0, params.length()-1);
     }
 
     public String makeRequest(String url, String method, Map<String, String> parameters) throws IOException
     {
+        // Open up a connection to the url so we can read in data later
         URL u = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) u.openConnection();
 
+        // User-Agent should be set otherwise Google will be unhappy
         conn.setRequestProperty("User-Agent", USER_AGENT);
         conn.setDoOutput(true);
         conn.setRequestMethod(method);
+
         if (parameters != null)
         {
+            // If parameters are present, let's turn it into a valid query string
             conn.getOutputStream().write(parameterize(parameters).toString().getBytes("UTF-8"));
         }
+
+        // Read in the incoming stream, and just add it to a String and return it
         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
         String response = "";
         String input;
@@ -77,6 +90,7 @@ public class TranslateClient
         return response;
     }
 
+    // Extract sentences from the json given to us by Google's API
     public String getSentences(String json)
     {
         JsonObject object = Json.parse(json).asObject();
@@ -93,6 +107,9 @@ public class TranslateClient
         return translated;
     }
 
+    // Extract source language from the json given to us by Google's API
+    // Since Google has the option to "autodetect" a word/phrase, we can use this to
+    // our advantage to guess the language of any
     public String getSourceLanguage(String json)
     {
         JsonObject object = Json.parse(json).asObject();

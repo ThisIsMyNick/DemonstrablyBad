@@ -1,11 +1,14 @@
 #!/bin/bash
 
+git pull
+
 img=""
 from=""
 to=""
 transcribe=false
 shellmode=false
 
+# Parse arguments and pass to java
 for arg in "$@"
 do
     if [[ $arg == --img=* ]]

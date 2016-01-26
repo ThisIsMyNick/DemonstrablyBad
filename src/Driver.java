@@ -34,6 +34,7 @@ public class Driver
         System.out.println("\ttr\tSpecify if you only want a transcription, not translation.");
     }
 
+    // Parses command-line arguments for flags given by the user to the program
     public static void parseArgs(String[] args)
     {
         if (args.length < 5)
@@ -105,6 +106,7 @@ public class Driver
         return t.getSourceLanguage(response);
     }
 
+    // Query Google for the actual translation
     private static String translate(String source, String target, String text)
         throws IOException
     {
@@ -120,6 +122,7 @@ public class Driver
         return t.getSentences(response);
     }
 
+    // Allows the user to translate as much as they want in a shell-like fashion
     private static void interactive()
     {
         String s;
@@ -151,6 +154,7 @@ public class Driver
         }
     }
 
+    // Given a certain two-character iso code, return its corresponding three-character iso code
     private static String isoToTess(String src)
     {
         if (src.equals("en")) return "eng";

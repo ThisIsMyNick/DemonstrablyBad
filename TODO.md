@@ -8,6 +8,5 @@ TODO
 - [x] Extract text from image
 - [x] Send requests to google translate
 - [x] Parse json response
-- [ ] Document code
-- [ ] Implement more tests to the testing suite
-- [ ] Android app?
+- [x] Document code
+- [x] Android app?
