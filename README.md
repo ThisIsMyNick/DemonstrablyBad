@@ -22,3 +22,7 @@ To run:
 Or, to transcribe but not translate:
 
 `./run.sh --img=path/to/image --tr`
+
+Or, to translate interactively, without an image:
+
+`./run.sh --shell [--to=<target>] [--from=<source>]`

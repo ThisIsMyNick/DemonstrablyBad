@@ -21,12 +21,14 @@ public class Driver
     static String source;
     static String target;
     static boolean transcribe;
+    static boolean shellmode;
 
     public static void help()
     {
-        System.out.println("Usage: ./run.sh --img=PATH [--from=SOURCE] [--to=TARGET] [--tr]");
+        System.out.println("Usage: ./run.sh [--img=PATH] [--shell] [--from=SOURCE] [--to=TARGET] [--tr]");
         System.out.println("Arguments:");
         System.out.println("\timg\tImage to be translated");
+        System.out.println("\tshell\tUse stdin for text instead of image");
         System.out.println("\tfrom\tLanguage to be translated from (defaults to automatic language detection).");
         System.out.println("\tto\tLanguage to translate image to");
         System.out.println("\ttr\tSpecify if you only want a transcription, not translation.");
@@ -34,20 +36,25 @@ public class Driver
 
     public static void parseArgs(String[] args)
     {
-        if (args.length < 3)
+        if (args.length < 5)
         {
             // Only the to and from arguments have been passed
-            System.out.println("Please provide an image.");
+            System.out.println("Please use run.sh");
             help();
             System.exit(1);
         }
 
-        File f = new File(args[0]);
-        if (!f.exists() || f.isDirectory())
+        // Parse the --img argument
+        String[] img = args[0].split("=");
+        if (img.length > 1)
         {
-            System.out.println("File does not exist!");
-            help();
-            System.exit(1);
+            File f = new File(img[1]);
+            if (!f.exists() || f.isDirectory())
+            {
+                System.out.println("File does not exist!");
+                help();
+                System.exit(1);
+            }
         }
 
         // Parse the --from argument
@@ -76,33 +83,80 @@ public class Driver
             target = "en";
         }
 
+        // Parse the --transcribe argument
+        transcribe = args[3].equals("--transcribe=true");
 
-        if (args.length < 4) return; //transcribe off
-        transcribe = args[3].equals("--transcribe");
+        // Parse the --shell argument
+        shellmode = args[4].equals("--shell=true");
     }
 
-    public static void main(String[] args)
+    private static String translate(String source, String target, String text)
+        throws IOException
     {
-        parseArgs(args);
-        String s = TranslateTesseract.getText(args[0]);
-        if (transcribe)
-        {
-            //only transcribe
-            System.out.println(s);
-            return;
-        }
-        //translate
         TranslateClient t = new TranslateClient();
 
         Map<String, String> params = new HashMap<>();
         params.put("sl", source);
         params.put("tl", target);
         params.put("client", "p");
-        params.put("text", s);
+        params.put("text", text);
+
+        String response = t.makeRequest(t.GOOGLE_URL, "GET", params);
+        return t.getSentences(response);
+    }
+
+    private static void interactive()
+    {
+        String s;
+        InputStreamReader in = new InputStreamReader(System.in);
+        BufferedReader input = new BufferedReader(in);
+        for (;;)
+        {
+            System.out.print(">> ");
+            try
+            {
+                s = input.readLine();
+            } catch (IOException o)
+            {
+                System.out.println(o);
+                return;
+            }
+            if (s == null) break;
+            try
+            {
+                System.out.println(translate(source, target, s));
+            } catch (Exception o)
+            {
+                System.out.println(o);
+                if (o instanceof UnknownHostException)
+                {
+                    System.out.println("Perhaps you're not connected to the internet.");
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        parseArgs(args);
+        if (shellmode)
+        {
+            interactive();
+            return;
+        }
+
+        String s = TranslateTesseract.getText(args[0].substring(6));
+        if (transcribe)
+        {
+            //only transcribe
+            System.out.println(s);
+            return;
+        }
+
+        //translate
         try
         {
-            String response = t.makeRequest(t.GOOGLE_URL, "GET", params);
-            System.out.println(t.getSentences(response));
+            System.out.println(translate(source, target, s));
         } catch (Exception o)
         {
             System.out.println(o);

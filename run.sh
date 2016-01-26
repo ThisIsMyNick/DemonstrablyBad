@@ -4,6 +4,7 @@ img=""
 from=""
 to=""
 transcribe=false
+shellmode=false
 
 for arg in "$@"
 do
@@ -23,11 +24,11 @@ do
     then
         transcribe=true
     fi
+    if [[ $arg == --shell ]]
+    then
+        shellmode=true
+    fi
 done
 
-if [[ $transcribe == true ]]
-then
-    java -cp ./bin/:./lib/tess4j-1.3.0.jar translate.Driver "$img" --from="$from" --to="$to" --transcribe
-else
-    java -cp ./bin/:./lib/tess4j-1.3.0.jar translate.Driver "$img" --from="$from" --to="$to"
-fi
+
+java -cp ./bin/:./lib/tess4j-1.3.0.jar translate.Driver --img="$img" --from="$from" --to="$to" --transcribe="$transcribe" --shell="$shellmode"
