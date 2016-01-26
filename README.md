@@ -29,6 +29,6 @@ Or, to translate interactively, without an image:
 
 #### Android App
 We also have an Android implementation of this program. If you're cool and have an Android phone
-(version 4.1+ please), then installing and running the app is as simple as installing the [apk](https://raw.githubusercontent.com/ThisIsMyNick/DemonstrablyBad/master/app.apk).
+(version 4.1+ please), then installing and running the app is as simple as installing the [apk](https://github.com/ThisIsMyNick/DemonstrablyBad/raw/master/app.apk).
 If you don't have an Android phone, then you can download an emulator and run the app on there.
 The source for the Android app is in the `Translate` folder.

@@ -2,6 +2,11 @@ Devlog
 ------
 
 [2016-01-26]
+    [9a6d3f1] James Wang: Include Android app in the README
+    [7cf02d8] James Wang: Add more comments to code
+    [e316655] James Wang: Add spanish to default language being installed
+    [2be9c0e] James Wang: Allow for analyzing and translating of existing pictures in filesystem
+    [53044e8] James Wang: Add fragment for previewing image and selecting language
     [25eb562] Nobel Gautam: Add spanish traindata. Add auto-identifying which traindata to use when source language is omitted.
 
 [2016-01-25]
@@ -12,6 +17,19 @@ Devlog
     [29cdb46] James Wang: Update README to reflect removed dependencies
     [09a46a8] James Wang: Remove JUnit
     [055bb60] Nobel Gautam: Add option to transcribe
+    [b1fffd8] James Wang: Make the OCR class a singleton
+    [f5fa0ac] James Wang: Minor package refactor
+
+[2016-01-24]
+    [9ec7d06] James Wang: Finish feature for translating text inputs
+    [ec8c8cd] James Wang: Receive images from intents and retrieve text
+    [8554331] James Wang: Add task for downloading files from the Internet
+    [12a65f6] James Wang: Add tess-two library
+    [0f2f764] James Wang: Add web utilities
+    [6229fb2] James Wang: Launch specific intents for taking and uploading pictures
+    [4fe3165] James Wang: Minor refactor
+    [e9ab551] James Wang: Add a navigation drawer and a couple of fragments
+    [1863c7c] James Wang: Add basic Android app
 
 [2016-01-21]
     [c65e3b6] Nobel Gautam: Friendly error msg
