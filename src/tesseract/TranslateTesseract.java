@@ -8,7 +8,7 @@ import net.sourceforge.tess4j.TesseractException;
 public class TranslateTesseract
 {
 
-    public static String getText(String path)
+    public static String getText(String path, String lang)
     {
         File image = new File(path);
         Tesseract instance = Tesseract.getInstance();
@@ -16,6 +16,7 @@ public class TranslateTesseract
         String text = "";
         try
         {
+            instance.setLanguage(lang);
             text = instance.doOCR(image);
             return text;
         } catch (TesseractException e)

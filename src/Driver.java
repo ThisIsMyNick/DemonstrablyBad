@@ -90,6 +90,21 @@ public class Driver
         shellmode = args[4].equals("--shell=true");
     }
 
+    private static String getLang(String text)
+        throws IOException
+    {
+        TranslateClient t = new TranslateClient();
+
+        Map<String, String> params = new HashMap<>();
+        params.put("sl", "auto");
+        params.put("tl", "en");
+        params.put("client", "p");
+        params.put("text", text);
+
+        String response = t.makeRequest(t.GOOGLE_URL, "GET", params);
+        return t.getSourceLanguage(response);
+    }
+
     private static String translate(String source, String target, String text)
         throws IOException
     {
@@ -118,7 +133,7 @@ public class Driver
                 s = input.readLine();
             } catch (IOException o)
             {
-                System.out.println(o);
+                o.printStackTrace(System.out);
                 return;
             }
             if (s == null) break;
@@ -127,13 +142,20 @@ public class Driver
                 System.out.println(translate(source, target, s));
             } catch (Exception o)
             {
-                System.out.println(o);
+                o.printStackTrace(System.out);
                 if (o instanceof UnknownHostException)
                 {
                     System.out.println("Perhaps you're not connected to the internet.");
                 }
             }
         }
+    }
+
+    private static String isoToTess(String src)
+    {
+        if (src.equals("en")) return "eng";
+        if (src.equals("es")) return "spa";
+        return "en";
     }
 
     public static void main(String[] args)
@@ -145,21 +167,45 @@ public class Driver
             return;
         }
 
-        String s = TranslateTesseract.getText(args[0].substring(6));
-        if (transcribe)
+        if (!source.equals("auto"))
         {
-            //only transcribe
-            System.out.println(s);
-            return;
+            try
+            {
+                String tess_code = isoToTess(source);
+                String s = TranslateTesseract.getText(args[0].substring(6), tess_code);
+                if (transcribe)
+                {
+                    // transcribe only
+                    System.out.println(s);
+                    return;
+                }
+                System.out.println(translate(source, target, s));
+            } catch (Exception o)
+            {
+                o.printStackTrace(System.out);
+                if (o instanceof UnknownHostException)
+                {
+                    System.out.println("Perhaps you're not connected to the internet.");
+                }
+            }
         }
 
-        //translate
         try
         {
+            String s = TranslateTesseract.getText(args[0].substring(6), "eng");
+            String src = getLang(s);
+            String tess_code = isoToTess(src);
+            s = TranslateTesseract.getText(args[0].substring(6), tess_code);
+            if (transcribe)
+            {
+                // transcribe only
+                System.out.println(s);
+                return;
+            }
             System.out.println(translate(source, target, s));
         } catch (Exception o)
         {
-            System.out.println(o);
+            o.printStackTrace(System.out);
             if (o instanceof UnknownHostException)
             {
                 System.out.println("Perhaps you're not connected to the internet.");

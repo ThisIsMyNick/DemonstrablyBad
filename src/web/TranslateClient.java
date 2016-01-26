@@ -92,4 +92,11 @@ public class TranslateClient
         }
         return translated;
     }
+
+    public String getSourceLanguage(String json)
+    {
+        JsonObject object = Json.parse(json).asObject();
+        String source = object.get("src").asString();
+        return source;
+    }
 }
