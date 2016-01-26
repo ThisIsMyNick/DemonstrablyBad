@@ -20,6 +20,7 @@ public class Driver
 {
     static String source;
     static String target;
+    static boolean transcribe;
 
     public static void help()
     {
@@ -73,12 +74,29 @@ public class Driver
             // Default to english
             target = "en";
         }
+
+
+        if (args.length < 4) return; //transcribe off
+
+        String[] tr = args[3].split("=");
+
+        if (tr.length > 1)
+            transcribe = true;
+        else
+            transcribe = false;
     }
 
     public static void main(String[] args)
     {
         parseArgs(args);
         String s = TranslateTesseract.getText(args[0]);
+        if (transcribe)
+        {
+            //only transcribe
+            System.out.println(s);
+            return;
+        }
+        //translate
         TranslateClient t = new TranslateClient();
 
         Map<String, String> params = new HashMap<>();

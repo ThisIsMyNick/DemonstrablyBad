@@ -39,4 +39,4 @@ run_tests:
 	$(RUN_TESTS) || true
 
 run:
-	$(RUN) $(img) --from=$(from) --to=$(to) || true
+	$(RUN) $(img) --from=$(from) --to=$(to) --transcribe=$(tr) || true
