@@ -7,6 +7,7 @@ import io.github.demonstrablybad.translate.utils.WebUtils;
 
 public class Install {
 
+    // Check if files are installed
     public static boolean isInstalled() {
         File tessDir = new File(OCR.getOCRDataDirectory());
         if (tessDir.exists()) {
@@ -15,10 +16,12 @@ public class Install {
         return false;
     }
 
+    // To be run when the user runs the app for the first time
     public static void install() {
         new File(OCR.getOCRDataDirectory()).mkdirs();
         new File(OCR.getImageDirectory()).mkdirs();
         new File(OCR.getTessDirectory()).mkdirs();
         OCR.downloadLanguage("eng");
+        OCR.downloadLanguage("spa");
     }
 }
