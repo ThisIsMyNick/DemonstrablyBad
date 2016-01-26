@@ -17,4 +17,8 @@ To compile:
 
 To run:
 
-`make run img=path/to/image [to=<target>] [from=<source>]`
+`./run.sh --img=path/to/image [--to=<target>] [--from=<source>]`
+
+Or, to transcribe but not translate:
+
+`./run.sh --img=path/to/image --tr`

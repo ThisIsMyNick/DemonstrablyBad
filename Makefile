@@ -26,6 +26,3 @@ makedirs:
 
 clean:
 	rm -rf $(BIN_DIR)
-
-run:
-	$(RUN) $(img) --from=$(from) --to=$(to) --transcribe=$(tr) || true
