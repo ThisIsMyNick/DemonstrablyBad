@@ -24,11 +24,12 @@ public class Driver
 
     public static void help()
     {
-        System.out.println("Usage: make run img=PATH [from=SOURCE] [to=TARGET]");
+        System.out.println("Usage: ./run.sh --img=PATH [--from=SOURCE] [--to=TARGET] [--tr]");
         System.out.println("Arguments:");
         System.out.println("\timg\tImage to be translated");
         System.out.println("\tfrom\tLanguage to be translated from (defaults to automatic language detection).");
         System.out.println("\tto\tLanguage to translate image to");
+        System.out.println("\ttr\tSpecify if you only want a transcription, not translation.");
     }
 
     public static void parseArgs(String[] args)
@@ -77,13 +78,7 @@ public class Driver
 
 
         if (args.length < 4) return; //transcribe off
-
-        String[] tr = args[3].split("=");
-
-        if (tr.length > 1)
-            transcribe = true;
-        else
-            transcribe = false;
+        transcribe = args[3].equals("--transcribe");
     }
 
     public static void main(String[] args)
