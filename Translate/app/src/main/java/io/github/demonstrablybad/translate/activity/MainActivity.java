@@ -65,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.setDrawerListener(mDrawerToggle);
 
         prefs = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+        if (prefs.getBoolean("first_run", true)) {
+            Install.install();
+            prefs.edit().putBoolean("first_run", false).commit();
+        }
     }
 
     @Override
@@ -77,10 +81,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (prefs.getBoolean("first_run", true)) {
-            Install.install();
-            prefs.edit().putBoolean("first_run", false).commit();
-        }
     }
 
     @Override
