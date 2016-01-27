@@ -1,14 +1,18 @@
 package io.github.demonstrablybad.translate.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,11 +20,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import java.io.File;
 
 import io.github.demonstrablybad.translate.R;
 import io.github.demonstrablybad.translate.fragment.TranslatePictureFragment;
 import io.github.demonstrablybad.translate.fragment.TranslateTextFragment;
 import io.github.demonstrablybad.translate.install.Install;
+import io.github.demonstrablybad.translate.ocr.OCR;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,14 +50,6 @@ public class MainActivity extends AppCompatActivity {
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         navigationView = (NavigationView) findViewById(R.id.nvView);
 
         navigationView.setNavigationItemSelectedListener(
@@ -65,9 +65,20 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.setDrawerListener(mDrawerToggle);
 
         prefs = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
-        if (prefs.getBoolean("first_run", true)) {
+        if (!Install.isInstalled()) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    Toast.makeText(getApplicationContext(), "External write access is required. Please come back after you've enabled.", Toast.LENGTH_SHORT).show();
+                } else {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            1337);
+                }
+            }
             Install.install();
-            prefs.edit().putBoolean("first_run", false).commit();
         }
     }
 
